@@ -1,0 +1,124 @@
+{
+  "created_at_utc": "2026-08-23T15:03:03.801772+00:00",
+  "artifacts": [
+    {
+      "path": "api_NASDAQ_SPY_20260823-1503.csv",
+      "dataset": "SPY daily OHLCV",
+      "rows": 2512,
+      "columns": [
+        "date",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume"
+      ],
+      "source_metadata": {
+        "source": "Nasdaq",
+        "source_url": "https://api.nasdaq.com/api/quote/SPY/historical",
+        "request_params": {
+          "assetclass": "etf",
+          "fromdate": "2016-08-23",
+          "todate": "2026-08-23",
+          "limit": "5000"
+        },
+        "reported_total_records": 2513,
+        "dropped_incomplete_rows": 1,
+        "dropped_incomplete_dates": [
+          "2026-04-20"
+        ],
+        "retrieved_at_utc": "2026-08-23T15:03:02.815481+00:00"
+      },
+      "validation": {
+        "shape": [
+          2512,
+          6
+        ],
+        "required_columns_present": true,
+        "dtypes": {
+          "date": "datetime64[us]",
+          "open": "Float64",
+          "high": "Float64",
+          "low": "Float64",
+          "close": "Float64",
+          "volume": "Int64"
+        },
+        "na_by_column": {
+          "date": 0,
+          "open": 0,
+          "high": 0,
+          "low": 0,
+          "close": 0,
+          "volume": 0
+        },
+        "duplicate_dates": 0,
+        "date_min": "2016-08-23",
+        "date_max": "2026-08-21",
+        "invalid_ohlc_rows": 0,
+        "passed": true
+      },
+      "sha256": "a5f59ac14aafcd7f9053dc12daefe9e21f4be2249e769b7526e325b05daa812b",
+      "size_bytes": 120977
+    },
+    {
+      "path": "scrape_WIKIPEDIA_SP500_CONSTITUENTS_20260823-1503.csv",
+      "dataset": "Current S&P 500 constituents",
+      "rows": 503,
+      "columns": [
+        "symbol",
+        "security",
+        "gics_sector",
+        "gics_sub_industry",
+        "headquarters_location",
+        "date_added",
+        "cik",
+        "founded"
+      ],
+      "source_metadata": {
+        "source": "Wikipedia",
+        "source_url": "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies",
+        "table_selector": "table#constituents",
+        "retrieved_at_utc": "2026-08-23T15:03:03.782472+00:00"
+      },
+      "validation": {
+        "shape": [
+          503,
+          8
+        ],
+        "required_columns_present": true,
+        "dtypes": {
+          "symbol": "str",
+          "security": "str",
+          "gics_sector": "str",
+          "gics_sub_industry": "str",
+          "headquarters_location": "str",
+          "date_added": "datetime64[us]",
+          "cik": "int64",
+          "founded": "str"
+        },
+        "na_by_column": {
+          "symbol": 0,
+          "security": 0,
+          "gics_sector": 0,
+          "gics_sub_industry": 0,
+          "headquarters_location": 0,
+          "date_added": 0,
+          "cik": 0,
+          "founded": 0
+        },
+        "blank_text": {
+          "symbol": 0,
+          "security": 0,
+          "gics_sector": 0,
+          "gics_sub_industry": 0
+        },
+        "duplicate_symbols": 0,
+        "unique_sectors": 11,
+        "numeric_cik": true,
+        "passed": true
+      },
+      "sha256": "05364afd12596961482a20041ad2dc9775eda3d81e895a1cd6c383b7b7503340",
+      "size_bytes": 53834
+    }
+  ]
+}

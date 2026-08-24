@@ -1,0 +1,10 @@
+column,value,count,proportion
+return_direction,Up,1384,0.5509554140127388
+return_direction,Down,1122,0.446656050955414
+return_direction,Flat,5,0.0019904458598726115
+return_direction,Missing,1,0.0003980891719745223
+weekday_name,Tuesday,518,0.20621019108280256
+weekday_name,Wednesday,515,0.20501592356687898
+weekday_name,Thursday,506,0.2014331210191083
+weekday_name,Friday,505,0.20103503184713375
+weekday_name,Monday,468,0.18630573248407642

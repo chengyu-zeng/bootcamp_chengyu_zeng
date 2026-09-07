@@ -1,0 +1,31 @@
+{
+  "date_max": "2026-09-04",
+  "date_min": "2016-09-07",
+  "first_return_missing_by_construction": 1,
+  "input_shape": [
+    2512,
+    6
+  ],
+  "iqr": {
+    "flagged_count": 165,
+    "k": 1.5,
+    "lower_bound": -0.01825297660403663,
+    "upper_bound": 0.020537990402947293
+  },
+  "output_shape": [
+    2512,
+    9
+  ],
+  "passed": true,
+  "policy": {
+    "default_action": "flag and retain all observations",
+    "future_modeling": "estimate thresholds on training data only",
+    "scope": "full-snapshot descriptive sensitivity analysis only"
+  },
+  "return_observations": 2511,
+  "sort_was_required": false,
+  "zscore": {
+    "flagged_count": 33,
+    "threshold": 3.0
+  }
+}

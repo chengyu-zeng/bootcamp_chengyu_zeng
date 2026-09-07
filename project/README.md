@@ -41,6 +41,7 @@ project/
 ├── docs/
 │   ├── data_sources.md
 │   ├── data_storage.md
+│   ├── outliers.md
 │   └── preprocessing.md
 ├── model/
 ├── notebooks/
@@ -52,6 +53,7 @@ project/
     ├── config.py
     ├── cleaning.py
     ├── ingestion.py
+    ├── outliers.py
     ├── storage.py
     └── utils.py
 ```
@@ -82,6 +84,13 @@ Stage 02 uses the `fe-course` Conda environment with Python 3.11.15. `requiremen
 - Raw data remain unadjusted and unchanged. No global scaling is performed; any future scaler must fit only on training data.
 - See the [preprocessing policy](docs/preprocessing.md) for lineage, assumptions, and non-actions.
 
+## Outlier Analysis
+
+- Stage07 calculates close-to-close daily returns from the Stage06 dataset and adds IQR (`k=1.5`) and z-score (`|z| > 3`) review flags without deleting market dates.
+- The default decision is flag-and-retain. Filtered and 5%/95% winsorized variants are sensitivity diagnostics, not replacement production data.
+- Full-snapshot thresholds are descriptive only; future modeling will estimate any threshold or boundary on training data alone.
+- See the [outlier policy](docs/outliers.md) for definitions, lineage, assumptions, and risks.
+
 ## Current Status
 
-The Stage 02 tooling scaffold and Stage 03 foundational utilities are in place. Stage 04 adds ingestion and raw SPY snapshots; Stage 05 adds validated storage; Stage 06 adds deterministic preprocessing and reporting. Later stages will add risk analysis, EDA, and feature engineering.
+The Stage 02 tooling scaffold and Stage 03 foundational utilities are in place. Stage 04 adds ingestion and raw SPY snapshots; Stage 05 adds validated storage; Stage 06 adds deterministic preprocessing; Stage 07 adds return-outlier review and sensitivity analysis. Later stages will add EDA and feature engineering.

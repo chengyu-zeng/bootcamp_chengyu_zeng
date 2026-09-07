@@ -1,0 +1,14 @@
+column,value,count,proportion
+return_outlier_iqr,False,2347,0.9343152866242038
+return_outlier_iqr,True,165,0.06568471337579618
+return_outlier_zscore,False,2479,0.9868630573248408
+return_outlier_zscore,True,33,0.013136942675159236
+return_direction,Up,1385,0.5513535031847133
+return_direction,Down,1121,0.4462579617834395
+return_direction,Flat,5,0.0019904458598726115
+return_direction,Missing,1,0.0003980891719745223
+weekday_name,Tuesday,517,0.20581210191082802
+weekday_name,Wednesday,515,0.20501592356687898
+weekday_name,Thursday,506,0.2014331210191083
+weekday_name,Friday,505,0.20103503184713375
+weekday_name,Monday,469,0.18670382165605096

@@ -1,0 +1,2 @@
+column,minimum,maximum,unique_count,duplicate_count,monotonic_increasing
+date,2016-09-07,2026-09-04,2512,0,True

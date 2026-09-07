@@ -1,0 +1,5 @@
+column,role,missing_count,missing_fraction,dominant_fraction,attention
+daily_return,numeric,1,0.0003980891719745223,0.0019904458598726115,has_missing
+return_outlier_zscore,categorical,0,0.0,0.9868630573248408,dominant_category
+abs_return,numeric,1,0.0003980891719745223,0.0019904458598726115,has_missing
+rolling_volatility_21,numeric,21,0.008359872611464968,0.008359872611464968,has_missing

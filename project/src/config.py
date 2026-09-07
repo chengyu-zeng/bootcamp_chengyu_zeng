@@ -31,7 +31,25 @@ def get_key(name: str, default: str | None = None, *, required: bool = False) ->
 def get_data_dir() -> Path:
     """Resolve DATA_DIR relative to the project root when it is not absolute."""
 
-    configured = Path(get_key("DATA_DIR", "./data") or "./data").expanduser()
+    return get_path_from_env("DATA_DIR", "./data")
+
+
+def get_path_from_env(name: str, default: str) -> Path:
+    """Resolve one configured path relative to the project root when needed."""
+
+    configured = Path(get_key(name, default) or default).expanduser()
     if not configured.is_absolute():
         configured = PROJECT_ROOT / configured
     return configured.resolve()
+
+
+def get_raw_data_dir() -> Path:
+    """Return the configured directory for immutable source snapshots."""
+
+    return get_path_from_env("DATA_DIR_RAW", "data/raw")
+
+
+def get_processed_data_dir() -> Path:
+    """Return the configured directory for reproducible derived data."""
+
+    return get_path_from_env("DATA_DIR_PROCESSED", "data/processed")

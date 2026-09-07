@@ -18,7 +18,7 @@ The first version is limited to daily SPY data and excludes intraday order-book 
 | Establish reproducible tooling and configuration | Stage 02 — Tooling Setup | Environment specification, `.env.example`, project scaffold |
 | Demonstrate reusable data handling | Stage 03 — Python Fundamentals | `python_fundamentals_summary.ipynb` and reusable `src/utils.py` helpers |
 | Acquire documented market data | Stage 04 — Data Acquisition | `project_pipeline.ipynb`, validated SPY raw snapshot, manifest, and ingestion code |
-| Preserve inputs and derived datasets | Stage 05 — Data Storage | Raw/processed data conventions and versioned snapshots |
+| Preserve inputs and derived datasets | Stage 05 — Data Storage | Env-driven IO, validated Parquet derivative, and storage documentation |
 | Create an analysis-ready time series | Stage 06 — Data Preprocessing | Cleaning pipeline, validation report, processed dataset |
 | Test extreme-observation choices | Stage 07 — Outlier Analysis | Outlier analysis and treatment decision record |
 | Understand time-series behavior | Stage 08 — EDA | EDA notebook, charts, and findings |
@@ -39,7 +39,8 @@ project/
 │   ├── processed/
 │   └── raw/
 ├── docs/
-│   └── data_sources.md
+│   ├── data_sources.md
+│   └── data_storage.md
 ├── model/
 ├── notebooks/
 │   ├── 00_project_setup.ipynb
@@ -49,6 +50,7 @@ project/
 └── src/
     ├── config.py
     ├── ingestion.py
+    ├── storage.py
     └── utils.py
 ```
 
@@ -64,6 +66,13 @@ project/
 
 Stage 02 uses the `fe-course` Conda environment with Python 3.11.15. `requirements.txt` is a dependency snapshot generated from that environment; re-freeze it whenever project dependencies change. Configuration values are read from a local `.env` copied from `.env.example`; the real `.env` is excluded from Git. Raw data, processed data, code, and documentation remain separated so that each result can be reproduced and audited.
 
+## Data Storage
+
+- `data/raw/` holds timestamped, immutable-style provider snapshots and manifests. It is never used for manually edited or derived outputs.
+- `data/processed/` holds reproducible derivatives. Stage05 writes a Snappy-compressed Parquet representation of a named raw SPY snapshot; it is a typed storage representation, not a claim that the data are already cleaned.
+- `src.config` resolves `DATA_DIR_RAW` and `DATA_DIR_PROCESSED` from the ignored local `.env`; `src.storage` reads/writes CSV or Parquet by suffix and validates round-trip shape, schema, null counts, values, and critical dtypes.
+- See [data storage conventions](docs/data_storage.md) for format rationale, lineage, and reproduction steps.
+
 ## Current Status
 
-The Stage 02 tooling scaffold and Stage 03 foundational utilities are in place. Stage 04 adds the cumulative ingestion pipeline, source documentation, timestamped raw SPY snapshots, and manifests; later stages will add storage, preprocessing, risk analysis, EDA, and feature engineering.
+The Stage 02 tooling scaffold and Stage 03 foundational utilities are in place. Stage 04 adds the ingestion pipeline and raw SPY snapshots; Stage 05 adds validated, environment-driven storage and a Parquet derivative. Later stages will add preprocessing, risk analysis, EDA, and feature engineering.

@@ -17,7 +17,7 @@ The first version is limited to daily SPY data and excludes intraday order-book 
 | Define the decision, stakeholder, scope, and risks | Stage 01 — Problem Framing | This README and stakeholder memo |
 | Establish reproducible tooling and configuration | Stage 02 — Tooling Setup | Environment specification, `.env.example`, project scaffold |
 | Demonstrate reusable data handling | Stage 03 — Python Fundamentals | `python_fundamentals_summary.ipynb` and reusable `src/utils.py` helpers |
-| Acquire documented market data | Stage 04 — Data Acquisition | Validated extracts, source metadata, ingestion code |
+| Acquire documented market data | Stage 04 — Data Acquisition | `project_pipeline.ipynb`, validated SPY raw snapshot, manifest, and ingestion code |
 | Preserve inputs and derived datasets | Stage 05 — Data Storage | Raw/processed data conventions and versioned snapshots |
 | Create an analysis-ready time series | Stage 06 — Data Preprocessing | Cleaning pipeline, validation report, processed dataset |
 | Test extreme-observation choices | Stage 07 — Outlier Analysis | Outlier analysis and treatment decision record |
@@ -39,20 +39,23 @@ project/
 │   ├── processed/
 │   └── raw/
 ├── docs/
+│   └── data_sources.md
 ├── model/
 ├── notebooks/
 │   ├── 00_project_setup.ipynb
-│   └── python_fundamentals_summary.ipynb
+│   ├── python_fundamentals_summary.ipynb
+│   └── project_pipeline.ipynb
 ├── reports/
 └── src/
     ├── config.py
+    ├── ingestion.py
     └── utils.py
 ```
 
-- `data/raw/`: Immutable source snapshots and acquisition metadata.
+- `data/raw/`: Timestamped immutable-style source snapshots and acquisition manifests.
 - `data/processed/`: Reproducible cleaned and feature-ready datasets.
-- `notebooks/`: Ordered, executable analysis notebooks; `00_project_setup.ipynb` verifies this environment and configuration without displaying secret values, while `python_fundamentals_summary.ipynb` demonstrates Stage 03 code with toy data.
-- `src/`: Reusable ingestion, validation, cleaning, feature, and evaluation code; `config.py` loads local configuration independently of the launch directory, and `utils.py` provides general tabular-data helpers.
+- `notebooks/`: Ordered, executable analysis notebooks; `00_project_setup.ipynb` verifies this environment and configuration, `python_fundamentals_summary.ipynb` demonstrates Stage 03 code with toy data, and the cumulative `project_pipeline.ipynb` begins ingestion in Stage 04.
+- `src/`: Reusable ingestion, validation, cleaning, feature, and evaluation code; `config.py` loads local configuration, `ingestion.py` acquires and validates raw SPY data, and `utils.py` provides general tabular-data helpers.
 - `docs/`: Stakeholder memos, assumptions, risks, and decision records.
 - `reports/`: Generated tables, charts, and presentation-ready outputs.
 - `model/`: Serialized model artifacts and model metadata when modeling begins.
@@ -63,4 +66,4 @@ Stage 02 uses the `fe-course` Conda environment with Python 3.11.15. `requiremen
 
 ## Current Status
 
-The Stage 02 tooling scaffold and Stage 03 foundational utilities are in place. Data ingestion begins in Stage 04, with storage, preprocessing, risk analysis, EDA, and feature engineering added in later stages.
+The Stage 02 tooling scaffold and Stage 03 foundational utilities are in place. Stage 04 adds the cumulative ingestion pipeline, source documentation, timestamped raw SPY snapshots, and manifests; later stages will add storage, preprocessing, risk analysis, EDA, and feature engineering.

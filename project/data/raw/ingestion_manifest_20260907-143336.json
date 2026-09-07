@@ -1,0 +1,63 @@
+{
+  "artifacts": [
+    {
+      "columns": [
+        "date",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume"
+      ],
+      "dataset": "SPY daily unadjusted OHLCV",
+      "path": "api_nasdaq_spy_daily_20260907-143336.csv",
+      "rows": 2512,
+      "sha256": "54d625383bfdc9baf25a22b43145425c427ac8a8e8e1fcec2f7c1794e876529e",
+      "size_bytes": 120981,
+      "source_metadata": {
+        "dropped_incomplete_dates": [
+          "2026-04-20"
+        ],
+        "dropped_incomplete_rows": 1,
+        "price_convention": "unadjusted OHLCV as supplied by the endpoint",
+        "reported_total_records": 2513,
+        "request_params": {
+          "assetclass": "etf",
+          "fromdate": "2016-09-07",
+          "limit": "5000",
+          "todate": "2026-09-07"
+        },
+        "retrieved_at_utc": "2026-09-07T14:33:36.446114+00:00",
+        "source": "Nasdaq public historical endpoint",
+        "source_url": "https://api.nasdaq.com/api/quote/SPY/historical"
+      },
+      "validation": {
+        "date_max": "2026-09-04",
+        "date_min": "2016-09-07",
+        "dtypes": {
+          "close": "Float64",
+          "date": "datetime64[us]",
+          "high": "Float64",
+          "low": "Float64",
+          "open": "Float64",
+          "volume": "Int64"
+        },
+        "na_by_column": {
+          "close": 0,
+          "date": 0,
+          "high": 0,
+          "low": 0,
+          "open": 0,
+          "volume": 0
+        },
+        "passed": true,
+        "required_columns_present": true,
+        "shape": [
+          2512,
+          6
+        ]
+      }
+    }
+  ],
+  "created_at_utc": "2026-09-07T14:33:36.517600+00:00"
+}

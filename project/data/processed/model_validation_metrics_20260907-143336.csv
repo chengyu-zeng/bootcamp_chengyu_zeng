@@ -1,0 +1,2 @@
+accuracy,precision,recall,f1,pr_auc,alert_rate,true_negative,false_positive,false_negative,true_positive,threshold,cutoff,regularization_c
+0.818,0.21052631578947367,0.5555555555555556,0.3053435114503817,0.23938184542461838,0.19,389,75,16,20,0.01699042268741321,0.5199999999999999,0.3

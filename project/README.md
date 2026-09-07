@@ -107,6 +107,11 @@ Stage 02 uses the `fe-course` Conda environment with Python 3.11.15. `requiremen
 - Every `*_t` feature uses only information available after date `t` closes. `next_day_abs_return` is a shifted continuous outcome, not a feature; its terminal missing value and warm-up missing values are preserved.
 - The high-volatility event threshold, train-only transformations, feature selection, and chronological model evaluation remain Stage10+ work. See [feature definitions and leakage policy](docs/feature_definitions.md).
 
+## Modeling Baseline
+
+- Stage10 uses chronological train/validation/test blocks, a training-only high-volatility threshold, and a `StandardScaler` plus class-balanced logistic-regression pipeline.
+- Validation chooses regularization by PR-AUC and the operating cutoff by F1; the provisional recall/alert-rate target is reported as an unmet model limitation, not hidden. See [modeling policy](docs/modeling.md).
+
 ## Current Status
 
-The Stage 02 tooling scaffold and Stage 03 foundational utilities are in place. Stage 04 adds ingestion and raw SPY snapshots; Stage 05 adds validated storage; Stage 06 adds deterministic preprocessing; Stage 07 adds return-outlier review and sensitivity analysis; Stage 08 adds reusable EDA summaries and documented visual analysis; Stage09 adds leakage-aware, information-available feature candidates. Later stages will add chronological modeling and evaluation.
+The Stage 02 tooling scaffold and Stage 03 foundational utilities are in place. Stage 04 adds ingestion and raw SPY snapshots; Stage 05 adds validated storage; Stage 06 adds deterministic preprocessing; Stage 07 adds return-outlier review and sensitivity analysis; Stage 08 adds reusable EDA summaries and documented visual analysis; Stage09 adds leakage-aware, information-available feature candidates; Stage10 adds a chronological classification baseline and its risk-aware diagnostics. Later stages will strengthen evaluation, calibration, and reporting.

@@ -42,6 +42,7 @@ project/
 │   ├── data_sources.md
 │   ├── data_storage.md
 │   ├── eda.md
+│   ├── feature_definitions.md
 │   ├── outliers.md
 │   └── preprocessing.md
 ├── model/
@@ -100,6 +101,12 @@ Stage 02 uses the `fe-course` Conda environment with Python 3.11.15. `requiremen
 - The reusable `src.eda` helper and `spy_eda.ipynb` separate descriptive findings from leakage-safe future feature decisions.
 - See the [EDA policy](docs/eda.md) for data lineage, interpretation limits, and Stage09 implications.
 
+## Feature Engineering
+
+- Stage09 converts Stage08 observations into end-of-day candidate features: return magnitude, intraday range, log-volume change, five-day rolling volatility, a stress interaction, and one-hot weekday fields.
+- Every `*_t` feature uses only information available after date `t` closes. `next_day_abs_return` is a shifted continuous outcome, not a feature; its terminal missing value and warm-up missing values are preserved.
+- The high-volatility event threshold, train-only transformations, feature selection, and chronological model evaluation remain Stage10+ work. See [feature definitions and leakage policy](docs/feature_definitions.md).
+
 ## Current Status
 
-The Stage 02 tooling scaffold and Stage 03 foundational utilities are in place. Stage 04 adds ingestion and raw SPY snapshots; Stage 05 adds validated storage; Stage 06 adds deterministic preprocessing; Stage 07 adds return-outlier review and sensitivity analysis; Stage 08 adds reusable EDA summaries and documented visual analysis. Later stages will add feature engineering.
+The Stage 02 tooling scaffold and Stage 03 foundational utilities are in place. Stage 04 adds ingestion and raw SPY snapshots; Stage 05 adds validated storage; Stage 06 adds deterministic preprocessing; Stage 07 adds return-outlier review and sensitivity analysis; Stage 08 adds reusable EDA summaries and documented visual analysis; Stage09 adds leakage-aware, information-available feature candidates. Later stages will add chronological modeling and evaluation.

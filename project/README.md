@@ -19,7 +19,7 @@ The first version is limited to daily SPY data and excludes intraday order-book 
 | Demonstrate reusable data handling | Stage 03 — Python Fundamentals | `python_fundamentals_summary.ipynb` and reusable `src/utils.py` helpers |
 | Acquire documented market data | Stage 04 — Data Acquisition | `project_pipeline.ipynb`, validated SPY raw snapshot, manifest, and ingestion code |
 | Preserve inputs and derived datasets | Stage 05 — Data Storage | Env-driven IO, validated Parquet derivative, and storage documentation |
-| Create an analysis-ready time series | Stage 06 — Data Preprocessing | Cleaning pipeline, validation report, processed dataset |
+| Create an analysis-ready time series | Stage 06 — Data Preprocessing | Deterministic cleaning, report, and preprocessed Parquet |
 | Test extreme-observation choices | Stage 07 — Outlier Analysis | Outlier analysis and treatment decision record |
 | Understand time-series behavior | Stage 08 — EDA | EDA notebook, charts, and findings |
 | Build information-available predictors | Stage 09 — Feature Engineering | Leakage-safe feature module and definitions |
@@ -40,7 +40,8 @@ project/
 │   └── raw/
 ├── docs/
 │   ├── data_sources.md
-│   └── data_storage.md
+│   ├── data_storage.md
+│   └── preprocessing.md
 ├── model/
 ├── notebooks/
 │   ├── 00_project_setup.ipynb
@@ -49,6 +50,7 @@ project/
 ├── reports/
 └── src/
     ├── config.py
+    ├── cleaning.py
     ├── ingestion.py
     ├── storage.py
     └── utils.py
@@ -73,6 +75,13 @@ Stage 02 uses the `fe-course` Conda environment with Python 3.11.15. `requiremen
 - `src.config` resolves `DATA_DIR_RAW` and `DATA_DIR_PROCESSED` from the ignored local `.env`; `src.storage` reads/writes CSV or Parquet by suffix and validates round-trip shape, schema, null counts, values, and critical dtypes.
 - See [data storage conventions](docs/data_storage.md) for format rationale, lineage, and reproduction steps.
 
+## Data Preprocessing
+
+- Stage06 reads the named Stage05 Parquet derivative, performs canonical schema/type/date/order/duplicate/range checks, and writes a new preprocessed Parquet plus JSON cleaning report.
+- The policy deliberately fails on missing or invalid OHLCV values rather than imputing or silently dropping them. Outlier treatment is deferred to Stage07.
+- Raw data remain unadjusted and unchanged. No global scaling is performed; any future scaler must fit only on training data.
+- See the [preprocessing policy](docs/preprocessing.md) for lineage, assumptions, and non-actions.
+
 ## Current Status
 
-The Stage 02 tooling scaffold and Stage 03 foundational utilities are in place. Stage 04 adds the ingestion pipeline and raw SPY snapshots; Stage 05 adds validated, environment-driven storage and a Parquet derivative. Later stages will add preprocessing, risk analysis, EDA, and feature engineering.
+The Stage 02 tooling scaffold and Stage 03 foundational utilities are in place. Stage 04 adds ingestion and raw SPY snapshots; Stage 05 adds validated storage; Stage 06 adds deterministic preprocessing and reporting. Later stages will add risk analysis, EDA, and feature engineering.

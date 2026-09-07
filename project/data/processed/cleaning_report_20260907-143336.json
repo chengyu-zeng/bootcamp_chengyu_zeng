@@ -1,0 +1,53 @@
+{
+  "date_max": "2026-09-04",
+  "date_min": "2016-09-07",
+  "input_dtypes": {
+    "close": "float64",
+    "date": "datetime64[us]",
+    "high": "float64",
+    "low": "float64",
+    "open": "float64",
+    "volume": "int64"
+  },
+  "input_shape": [
+    2512,
+    6
+  ],
+  "missing_after": {
+    "close": 0,
+    "date": 0,
+    "high": 0,
+    "low": 0,
+    "open": 0,
+    "volume": 0
+  },
+  "missing_before": {
+    "close": 0,
+    "date": 0,
+    "high": 0,
+    "low": 0,
+    "open": 0,
+    "volume": 0
+  },
+  "output_dtypes": {
+    "close": "float64",
+    "date": "datetime64[us]",
+    "high": "float64",
+    "low": "float64",
+    "open": "float64",
+    "volume": "int64"
+  },
+  "output_shape": [
+    2512,
+    6
+  ],
+  "passed": true,
+  "policies": {
+    "invalid_rows": "fail rather than silently drop",
+    "missing_values": "fail rather than impute",
+    "outliers": "not treated in Stage06; defer to Stage07",
+    "scaling": "not applied; fit any future scaler on training data only"
+  },
+  "rows_dropped": 0,
+  "sort_was_required": false
+}

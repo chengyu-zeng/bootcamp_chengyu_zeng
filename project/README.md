@@ -1,6 +1,6 @@
 # SPY Next-Day High-Volatility Risk Alert
 
-This directory is the integrated project workspace. It will build a reproducible end-of-day workflow that estimates the probability of a high-volatility SPY session on the next trading day and supports a portfolio risk manager's decision to request additional review, stress testing, or hedge analysis. The decision window is after the U.S. market close and before the next market open; a high-risk result prompts review rather than an automated trade.
+This directory is the integrated project workspace. It provides a reproducible end-of-day workflow that estimates the probability of a high-volatility SPY session on the next trading day and supports a portfolio risk manager's decision to request additional review, stress testing, or hedge analysis. The decision window is after the U.S. market close and before the next market open; a high-risk result prompts review rather than an automated trade.
 
 The primary stakeholder and decision owner is a portfolio risk manager. A risk analyst operates the workflow, validates inputs, and prepares the daily risk note; a portfolio manager is a secondary consumer. The project is predictive, not causal: using only information available by the current close, it estimates whether the next session's absolute SPY close-to-close return will exceed the 90th percentile calculated from training history. Its output is a probability, high/normal alert, data-quality status, and concise explanation.
 
@@ -14,6 +14,7 @@ The first version is limited to daily SPY data and excludes intraday order-book 
 
 | Goal | Lifecycle Stage | Deliverable |
 |---|---|---|
+| Verify the Python/Jupyter working baseline | Stage 00 — Pre-class Setup | `../homework/homework00/python_tutorial.ipynb` |
 | Define the decision, stakeholder, scope, and risks | Stage 01 — Problem Framing | This README and stakeholder memo |
 | Establish reproducible tooling and configuration | Stage 02 — Tooling Setup | Environment specification, `.env.example`, project scaffold |
 | Demonstrate reusable data handling | Stage 03 — Python Fundamentals | `python_fundamentals_summary.ipynb` and reusable `src/utils.py` helpers |
@@ -23,12 +24,14 @@ The first version is limited to daily SPY data and excludes intraday order-book 
 | Test extreme-observation choices | Stage 07 — Outlier Analysis | Outlier analysis and treatment decision record |
 | Understand time-series behavior | Stage 08 — EDA | EDA notebook, charts, and findings |
 | Build information-available predictors | Stage 09 — Feature Engineering | Leakage-safe feature module and definitions |
-| Estimate next-session event risk | Stage 10 — Modeling | Baselines, candidate models, risk probabilities |
+| Practise the linear-model workflow | Stage 10A — Linear Regression | `../homework/homework10a/` course exercise |
+| Estimate next-session event risk | Stage 10B — Time Series & Classification | `src/modeling.py`, modeling notebooks, saved baseline |
 | Validate reliability and uncertainty | Stage 11 — Evaluation & Risk Communication | Chronological backtest, calibration, risk metrics |
 | Deliver the decision-support output | Stage 12 — Results Reporting & Delivery | Daily risk table, documentation, stakeholder presentation |
 | Package model, API, and handoff artifacts | Stage 13 — Productization | Saved model, validated local Flask API, reproducibility instructions, stakeholder handoff |
 | Define deployment monitoring and operational ownership | Stage 14 — Deployment & Monitoring | Monitoring plan, handoff runbook, four-layer monitoring contract |
 | Define repeatable task dependencies and a CLI step | Stage 15 — Orchestration & System Design | Orchestration plan, checkpoint/logging policy, report CLI wrapper |
+| Close the lifecycle with an auditable project map | Stage 16 — Lifecycle Review | Framework guide, nontechnical project summary, final end-to-end check |
 
 Detailed Stage 01 evidence remains in [the scoping README](../homework/homework01/README.md) and [the stakeholder memo](../homework/homework01/docs/stakeholder_context_memo.md).
 
@@ -36,33 +39,18 @@ Detailed Stage 01 evidence remains in [the scoping README](../homework/homework0
 
 ```text
 project/
-├── .env.example
+├── .env.example              # local configuration template; real .env is ignored
+├── app.py                    # localhost Flask API
 ├── requirements.txt
 ├── data/
-│   ├── processed/
-│   └── raw/
-├── docs/
-│   ├── data_sources.md
-│   ├── data_storage.md
-│   ├── eda.md
-│   ├── feature_definitions.md
-│   ├── outliers.md
-│   └── preprocessing.md
-├── model/
-├── notebooks/
-│   ├── 00_project_setup.ipynb
-│   ├── python_fundamentals_summary.ipynb
-│   ├── project_pipeline.ipynb
-│   └── spy_eda.ipynb
-├── reports/
-└── src/
-    ├── config.py
-    ├── cleaning.py
-    ├── eda.py
-    ├── ingestion.py
-    ├── outliers.py
-    ├── storage.py
-    └── utils.py
+│   ├── raw/                  # immutable source snapshots and manifests
+│   └── processed/            # reproducible derived artifacts
+├── docs/                     # policies, plans, handoffs, lifecycle guide, summary
+├── logs/                     # ignored local CLI logs
+├── model/                    # approved serialized model artifact
+├── notebooks/                # setup, stage notebooks, cumulative project_pipeline.ipynb
+├── reports/                  # stakeholder report and generated charts
+└── src/                      # reusable ingestion through orchestration modules
 ```
 
 - `data/raw/`: Timestamped immutable-style source snapshots and acquisition manifests.
@@ -157,6 +145,13 @@ python -m src.run_step --stage stakeholder-report
 
 The command prints the report checkpoint and writes step-boundary logs to ignored `logs/orchestration.log`. Add `--timestamp 20260907-143336` to target a specific artifact set. The task DAG, checkpoint policy, retry rules, and manual-approval boundaries are in [the orchestration plan](docs/orchestration_plan.md).
 
+
+## Lifecycle Artifact Map and Final Summary
+
+[The lifecycle framework guide](docs/lifecycle_framework_guide.md) maps every course stage to the exact repository evidence and decision. [The nontechnical project summary](docs/project_summary.md) explains the question, findings, limits, and recommended use without requiring the reader to inspect code.
+
+The final integration check is `notebooks/project_pipeline.ipynb`, executed top-to-bottom after following the fresh-pull instructions above. It validates Stage04 through Stage16 artifacts; raw and processed data remain separated, and `.env` stays local and untracked.
+
 ## Current Status
 
-The Stage 02 tooling scaffold and Stage 03 foundational utilities are in place. Stage 04 adds ingestion and raw SPY snapshots; Stage 05 adds validated storage; Stage 06 adds deterministic preprocessing; Stage 07 adds return-outlier review and sensitivity analysis; Stage 08 adds reusable EDA summaries and documented visual analysis; Stage09 adds leakage-aware, information-available feature candidates; Stage10 adds a chronological classification baseline and its risk-aware diagnostics; Stage11 evaluates fixed test predictions with uncertainty and regime diagnostics; Stage12 adds a stakeholder-ready decision report; Stage13 saves the fitted model and exposes a validated local API; Stage14 documents monitoring thresholds and operational ownership; Stage15 adds a task DAG and idempotent report CLI. The current baseline is a manual review trigger only, not an automated trading signal.
+The Stage 02 tooling scaffold and Stage 03 foundational utilities are in place. Stage 04 adds ingestion and raw SPY snapshots; Stage 05 adds validated storage; Stage 06 adds deterministic preprocessing; Stage 07 adds return-outlier review and sensitivity analysis; Stage 08 adds reusable EDA summaries and documented visual analysis; Stage09 adds leakage-aware, information-available feature candidates; Stage10 adds a chronological classification baseline and its risk-aware diagnostics; Stage11 evaluates fixed test predictions with uncertainty and regime diagnostics; Stage12 adds a stakeholder-ready decision report; Stage13 saves the fitted model and exposes a validated local API; Stage14 documents monitoring thresholds and operational ownership; Stage15 adds a task DAG and idempotent report CLI; Stage16 completes the lifecycle map, nontechnical summary, and final integration check. The current baseline is a manual review trigger only, not an automated trading signal.

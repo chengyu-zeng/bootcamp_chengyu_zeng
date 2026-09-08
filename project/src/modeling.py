@@ -112,6 +112,8 @@ def run_baseline(frame: pd.DataFrame) -> dict:
         "cutoff": float(cutoff),
         "validation_probability": prob,
         "test_probability": test_prob,
+        "model": model,
+        "feature_columns": [*BASE_FEATURES, *EXTRA_FEATURES],
         "validation_metrics": val_metrics,
         "test_metrics": test_metrics,
     }

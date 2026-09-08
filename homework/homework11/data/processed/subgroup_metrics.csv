@@ -1,0 +1,3 @@
+regime,rows,accuracy,precision,recall,f1,pr_auc,alert_rate,true_negative,false_positive,false_negative,true_positive
+lower_volatility,251,0.9282868525896414,0.0,0.0,0.0,0.04492092573249573,0.03187250996015936,233,8,10,0
+higher_volatility,250,0.784,0.28125,0.6923076923076923,0.4,0.38083829008056536,0.256,178,46,8,18

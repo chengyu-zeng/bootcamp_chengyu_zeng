@@ -27,6 +27,7 @@ The first version is limited to daily SPY data and excludes intraday order-book 
 | Validate reliability and uncertainty | Stage 11 — Evaluation & Risk Communication | Chronological backtest, calibration, risk metrics |
 | Deliver the decision-support output | Stage 12 — Results Reporting & Delivery | Daily risk table, documentation, stakeholder presentation |
 | Package model, API, and handoff artifacts | Stage 13 — Productization | Saved model, validated local Flask API, reproducibility instructions, stakeholder handoff |
+| Define deployment monitoring and operational ownership | Stage 14 — Deployment & Monitoring | Monitoring plan, handoff runbook, four-layer monitoring contract |
 
 Detailed Stage 01 evidence remains in [the scoping README](../homework/homework01/README.md) and [the stakeholder memo](../homework/homework01/docs/stakeholder_context_memo.md).
 
@@ -138,6 +139,12 @@ python app.py
 
 The pipeline recreates the model artifact and stakeholder report. In a second terminal, run `jupyter nbconvert --to notebook --execute --inplace notebooks/spy_productization.ipynb` for an end-to-end API check. The local API binds only to `127.0.0.1:5050`; it is a development interface, not a deployed service.
 
+
+## Deployment and Monitoring
+
+- Stage14 defines concrete Data, Model, System, and Business thresholds, recipients, safe responses, and retraining/rollback ownership in [the monitoring plan](docs/monitoring_plan.md).
+- [The deployment handoff plan](docs/handoff_plan.md) links the API contract, startup check, model artifact, escalation owners, and stakeholder context. This is a conceptual monitoring design for the local course API, not a live production-monitoring system.
+
 ## Current Status
 
-The Stage 02 tooling scaffold and Stage 03 foundational utilities are in place. Stage 04 adds ingestion and raw SPY snapshots; Stage 05 adds validated storage; Stage 06 adds deterministic preprocessing; Stage 07 adds return-outlier review and sensitivity analysis; Stage 08 adds reusable EDA summaries and documented visual analysis; Stage09 adds leakage-aware, information-available feature candidates; Stage10 adds a chronological classification baseline and its risk-aware diagnostics; Stage11 evaluates fixed test predictions with uncertainty and regime diagnostics; Stage12 adds a stakeholder-ready decision report; Stage13 saves the fitted model and exposes a validated local API. The current baseline is a manual review trigger only, not an automated trading signal.
+The Stage 02 tooling scaffold and Stage 03 foundational utilities are in place. Stage 04 adds ingestion and raw SPY snapshots; Stage 05 adds validated storage; Stage 06 adds deterministic preprocessing; Stage 07 adds return-outlier review and sensitivity analysis; Stage 08 adds reusable EDA summaries and documented visual analysis; Stage09 adds leakage-aware, information-available feature candidates; Stage10 adds a chronological classification baseline and its risk-aware diagnostics; Stage11 evaluates fixed test predictions with uncertainty and regime diagnostics; Stage12 adds a stakeholder-ready decision report; Stage13 saves the fitted model and exposes a validated local API; Stage14 documents monitoring thresholds and operational ownership. The current baseline is a manual review trigger only, not an automated trading signal.

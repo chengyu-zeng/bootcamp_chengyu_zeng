@@ -89,9 +89,19 @@ def run_baseline(frame: pd.DataFrame) -> dict:
     c, model, prob, selection = max(candidates, key=lambda item: item[3]["pr_auc"])
     grid = np.linspace(0.05, 0.95, 91)
     cutoff = max(grid, key=lambda x: evaluate(val.label, prob, float(x))["f1"])
-    val_metrics = evaluate(val.label, prob, float(cutoff))
+    val_metrics = {
+        **evaluate(val.label, prob, float(cutoff)),
+        "threshold": float(q),
+        "cutoff": float(cutoff),
+        "regularization_c": float(c),
+    }
     test_prob = model.predict_proba(test[BASE_FEATURES + EXTRA_FEATURES])[:, 1]
-    test_metrics = evaluate(test.label, test_prob, float(cutoff))
+    test_metrics = {
+        **evaluate(test.label, test_prob, float(cutoff)),
+        "threshold": float(q),
+        "cutoff": float(cutoff),
+        "regularization_c": float(c),
+    }
     return {
         "data": data,
         "train": train,

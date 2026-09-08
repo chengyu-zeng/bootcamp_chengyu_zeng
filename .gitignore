@@ -17,3 +17,6 @@ __pycache__/
 
 # Ignore OS files
 .DS_Store
+
+# Ignore local orchestration logs
+project/logs/
